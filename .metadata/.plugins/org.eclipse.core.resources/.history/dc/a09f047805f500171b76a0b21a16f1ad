@@ -1,0 +1,76 @@
+<%@page import="dao.ScoreDao"%>
+<%@page import="vo.ScoreVo"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	request.setCharacterEncoding("utf-8");
+	String code = request.getParameter("code");
+	ScoreVo svo = ScoreDao.getInstance().selectOne(Integer.parseInt(code)); 
+%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<style>
+	table{
+		border-collapse: collapse;
+	}
+	td{
+		text-align: center;
+	}
+	input[type="button"]{
+		width: 80px;
+	}
+	
+	#midifyDiv{
+		margin: auto;
+		margin-top: 30px;
+		background-color: #ccaa99;
+		width: 300px;
+		height: 200px;
+		box-shadow: 0px 0px 3px 3px gray;
+		display: none;
+	}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+	<div id="midifyDiv" align="center">
+		<form>
+			<table cellpadding="5"> 
+				<caption>::: 성적 추가 :::</caption>
+				<tbody>
+					<tr>
+						<th>이름</th>
+						<td><input type="text" id="name" name="name" value=<%=svo.getName() %>></td>
+					</tr>
+					<tr>
+						<th>국어</th>
+						<td><input type="text" id="korean" name="korean" placeholder="0~100숫자입력햇"></td>
+					</tr>
+					<tr>
+						<th>영어</th>
+						<td><input type="text" id="english" name="english" placeholder="0~100숫자입력햇"></td>
+					</tr>
+					<tr>
+						<th>수학</th>
+						<td><input type="text" id="math" name="math" placeholder="0~100숫자입력햇"></td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="2">
+							<input type="button" value="추가하기" onclick="add(this.form)">
+							<input type="reset"  value="다시입력" >
+							<input type="button" value="취소하기" onclick="hideAddDiv()">
+						</td>
+					</tr>
+				</tfoot>
+				
+			</table>
+		</form>
+	</div>
+</body>
+</html>

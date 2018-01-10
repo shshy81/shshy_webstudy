@@ -1,0 +1,42 @@
+package util;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class DBConnector {
+	
+	private DBConnector(){}
+	
+	public static DBConnector getInstance(){
+		// 객체 생성하지 않고 클래스 이름으로 접근하게
+		DBConnector connector = new DBConnector();
+		return connector;
+	}
+	
+	static{
+		//DB드라이버 로딩 // 톰캣 실행될때 한번만 실행되게
+		try {
+			Class.forName("com.mysql.jdbc.Driver"); // lib에 있는 라이브러리 에 있는 클래스 정보를 클래스 영역에 담아준다. (위처럼 클래스 선언안해도)
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public Connection getConnection(){
+		Connection conn = null;
+		
+		//연결작업
+		String url = "jdbc:mysql://localhost:3306/world";
+		String user = "root";
+		String pwd = "0416";
+		
+		try {
+			conn = DriverManager.getConnection(url, user, pwd);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return conn;
+
+	}
+}
